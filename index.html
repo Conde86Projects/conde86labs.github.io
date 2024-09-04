@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<!-- Google tag (gtag.js) -->
@@ -18,7 +19,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		body {
-		  font-family: 'Google Sans', sans-serif; 
+		  font-family: 'Google Sans', sans-serif;
 		  font-feature-settings: 'normal';
 		 }
 		.hero {
@@ -34,33 +35,111 @@
 		  font-size: 3rem;
 		  margin-bottom: 1rem;
 		}
-		
+
 		.logo {
 		    width: 150px;
 		}
-		
+
 		.tarefa {
-		    width: 60px; 
+		    width: 60px;
 		}
 		.btn-custom {
-    background-color: #FDE694; 
-    color: black;              
-    border: none;             
-    padding: 10px 20px;        
-    font-weight: bold;         
-    text-transform: capitalize; 
+    background-color: #FDE694;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 .btn-custom:hover {
-    background-color: #fde99f; 
+    background-color: #fde99f;
 }
 
 .card-title {
-    font-size: 1.1rem;  
-    font-weight: 600;    
-    text-transform: capitalize; 
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
 }
 
+.cookie-image {
+    max-width: 90px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para a caixa de consentimento de cookies */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  background: #FCBA7F;
+}
+.wrapper{
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  max-width: 365px;
+  background: #fff;
+  padding: 25px 25px 30px 25px;
+  border-radius: 15px;
+  box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.15);
+  text-align: center;
+  z-index: 999;
+}
+.wrapper.hide{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+::selection{
+  color: #fff;
+  background: #FCBA7F;
+}
+.wrapper img{
+  max-width: 90px;
+}
+.content header{
+  font-size: 25px;
+  font-weight: 600;
+}
+.content{
+  margin-top: 10px;
+}
+.content p{
+  color: #858585;
+  margin: 5px 0 20px 0;
+}
+.content .buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttons button{
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  background: #FCBA7F;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.buttons button:hover{
+  transform: scale(0.97);
+}
+.buttons .item{
+  margin: 0 10px;
+}
+.buttons a{
+  color: #FCBA7F;
+}
 	</style>
 </head>
 <body>
@@ -87,7 +166,7 @@
 			<p class="lead">Soluções personalizadas para o seu negócio</p>
 		</div>
 	</header>
-	<section id="servicos" class="py-5">
+	<section id="servicos" class="py-5 bg-white">
 		<div class="container">
 			<h2 class="text-center mb-5">Nossos Serviços</h2>
 			<div class="row">
@@ -158,7 +237,7 @@
 			</div>
 		</div>
 	</section>
-	<section id="contato" class="py-5">
+	<section id="contato" class="py-5 bg-white">
 		<div class="container">
 			<h2 class="text-center mb-5">Entre em Contato</h2>
 			<div class="row justify-content-center">
@@ -185,23 +264,34 @@
 			<p>&copy; 2024 Conde86 Labs. Todos os direitos reservados.</p>
 		</div>
 	</footer>
+	<div class="wrapper">
+		<div class="content">
+			<img src="images/cookie.svg" alt="Cookie Image" class="cookie-image">
+			<header>Consentimento de Cookies</header>
+			<p>Este site utiliza cookies para garantir que você tenha a melhor experiência em nosso site.</p>
+			<div class="buttons">
+				<button class="item">Eu entendi</button>
+				<a href="#" class="item">Saiba mais</a>
+			</div>
+		</div>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 	<script>
 		(function() {
 		  emailjs.init("c_WO9UYO4DcQ0eqOm"); // Substitua YOUR_USER_ID pelo seu ID de usuário do EmailJS
 		})();
-		
+
 		document.getElementById('contactForm').addEventListener('submit', function(event) {
 		  event.preventDefault();
-		
+
 		  const templateParams = {
 		    from_name: document.getElementById('name').value,
 		    from_email: document.getElementById('email').value,
 		    message: document.getElementById('message').value,
 		    to_email: 'conde86labs@gmail.com'
 		  };
-		
+
 		  emailjs.send('service_i7q3zej', 'template_41ga1uj', templateParams)
 		    .then(function(response) {
 		      console.log('SUCCESS!', response.status, response.text);
@@ -212,18 +302,37 @@
 		      alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.');
 		    });
 		});
-		
+
 		// Adicione este código para corrigir o problema de rolagem suave
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 		  anchor.addEventListener('click', function (e) {
+		    if (this.getAttribute('href') === '#') {
+		      e.preventDefault();
+		      return;
+		    }
 		    e.preventDefault();
-		
+
 		    document.querySelector(this.getAttribute('href')).scrollIntoView({
 		      behavior: 'smooth'
 		    });
 		  });
 		});
+
+		// Código para consentimento de cookies
+		const cookieBox = document.querySelector(".wrapper"),
+		acceptBtn = cookieBox.querySelector("button");
+		acceptBtn.onclick = ()=>{
+		  // Definindo cookie por 1 mês, após um mês ele será expirado automaticamente
+		  document.cookie = "CookieBy=Conde86Labs; max-age="+60*60*24*30;
+		  if(document.cookie){ // Se o cookie for definido
+		    cookieBox.classList.add("hide"); // Ocultar a caixa de cookies
+		  }else{ // Se o cookie não for definido, então alertar um erro
+		    alert("Cookie não pode ser definido! Por favor, desbloqueie este site das configurações de cookie do seu navegador.");
+		  }
+		}
+		let checkCookie = document.cookie.indexOf("CookieBy=Conde86Labs"); // Verificando nosso cookie
+		// Se o cookie for definido, então ocultar a caixa de cookies, caso contrário, mostrar
+		checkCookie != -1 ? cookieBox.classList.add("hide") : cookieBox.classList.remove("hide");
 	</script>
 </body>
 </html>
-
