@@ -265,7 +265,7 @@ body{
 			<p>&copy; 2024 Conde86 Labs. Todos os direitos reservados.</p>
 		</div>
 	</footer>
-	<div class="wrapper">
+	<div class="wrapper hide">
 		<div class="content">
 			<img src="images/cookie.svg" alt="Cookie Image" class="cookie-image">
 			<header>Consentimento de Cookies</header>
@@ -324,7 +324,7 @@ body{
 		acceptBtn = cookieBox.querySelector("button");
 		acceptBtn.onclick = ()=>{
 		  // Definindo cookie por 1 mês, após um mês ele será expirado automaticamente
-		  document.cookie = "CookieBy=Conde86Labs; max-age="+60*60*24*30;
+		  document.cookie = "CookieBy=Conde86Labs; max-age="+60*60*24*30 + "; SameSite=Lax; Path=/";
 		  if(document.cookie){ // Se o cookie for definido
 		    cookieBox.classList.add("hide"); // Ocultar a caixa de cookies
 		  }else{ // Se o cookie não for definido, então alertar um erro
@@ -333,7 +333,9 @@ body{
 		}
 		let checkCookie = document.cookie.indexOf("CookieBy=Conde86Labs"); // Verificando nosso cookie
 		// Se o cookie for definido, então ocultar a caixa de cookies, caso contrário, mostrar
-		checkCookie != -1 ? cookieBox.classList.add("hide") : cookieBox.classList.remove("hide");
+		if (checkCookie == -1) { // If cookie is not found
+		  cookieBox.classList.remove("hide"); // Show the banner
+		}
 	</script>
 </body>
 </html>
