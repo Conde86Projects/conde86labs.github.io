@@ -89,12 +89,14 @@ body{
   box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.15);
   text-align: center;
   z-index: 999;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .wrapper.hide{
   opacity: 0;
   pointer-events: none;
   transform: scale(0.8);
-  transition: all 0.3s ease;
 }
 ::selection{
   color: #fff;
@@ -265,7 +267,7 @@ body{
 			<p>&copy; 2024 Conde86 Labs. Todos os direitos reservados.</p>
 		</div>
 	</footer>
-	<div class="wrapper hide">
+	<div class="wrapper" style="display: none;">
 		<div class="content">
 			<img src="images/cookie.svg" alt="Cookie Image" class="cookie-image">
 			<header>Consentimento de Cookies</header>
@@ -320,21 +322,51 @@ body{
 		});
 
 		// Código para consentimento de cookies
-		const cookieBox = document.querySelector(".wrapper"),
-		acceptBtn = cookieBox.querySelector("button");
-		acceptBtn.onclick = ()=>{
-		  // Definindo cookie por 1 mês, após um mês ele será expirado automaticamente
-		  document.cookie = "CookieBy=Conde86Labs; max-age="+60*60*24*30 + "; SameSite=Lax; Path=/";
-		  if(document.cookie){ // Se o cookie for definido
-		    cookieBox.classList.add("hide"); // Ocultar a caixa de cookies
-		  }else{ // Se o cookie não for definido, então alertar um erro
-		    alert("Cookie não pode ser definido! Por favor, desbloqueie este site das configurações de cookie do seu navegador.");
-		  }
-		}
-		let checkCookie = document.cookie.indexOf("CookieBy=Conde86Labs"); // Verificando nosso cookie
-		// Se o cookie for definido, então ocultar a caixa de cookies, caso contrário, mostrar
-		if (checkCookie == -1) { // If cookie is not found
-		  cookieBox.classList.remove("hide"); // Show the banner
+		const cookieBox = document.querySelector(".wrapper");
+		const acceptBtn = cookieBox.querySelector("button"); // Assumes the first button is the accept button
+		const hiddenClass = "hide"; // Define the class used for the fade-out state
+
+		acceptBtn.onclick = () => {
+		    // Set cookie for 30 days
+		    document.cookie = "CookieBy=Conde86Labs; max-age=" + (60*60*24*30) + "; SameSite=Lax; Path=/";
+
+		    if (document.cookie.indexOf("CookieBy=Conde86Labs") !== -1) { // Check if cookie was successfully set
+		        cookieBox.classList.add(hiddenClass); // Add class to trigger fade-out animation
+
+		        // After animation, set display: none to remove from layout
+		        setTimeout(() => {
+		            // Check if it's still supposed to be hidden before changing display property
+		            if (cookieBox.classList.contains(hiddenClass)) {
+		                cookieBox.style.display = 'none';
+		            }
+		        }, 300); // This duration should match the CSS transition time (0.3s)
+		    } else {
+		        // Alert if cookie could not be set (e.g., browser settings block cookies)
+		        alert("Cookie não pode ser definido! Por favor, desbloqueie este site das configurações de cookie do seu navegador.");
+		    }
+		};
+
+		// Check cookie status on page load
+		const isCookieSet = document.cookie.indexOf("CookieBy=Conde86Labs") !== -1;
+
+		if (isCookieSet) {
+		    // Cookie is set, ensure banner remains hidden and has the hiddenClass.
+		    // The HTML already has style="display: none;"
+		    // cookieBox.style.display = 'none'; // This is redundant due to inline style but harmless.
+		    cookieBox.classList.add(hiddenClass); // Ensure it has the class for logical consistency.
+		} else {
+		    // Cookie is NOT set, so show the banner.
+		    // The HTML has style="display: none;", so change it to make the box visible.
+		    cookieBox.style.display = 'block'; // Or 'flex' or other appropriate display type. 'block' is fine here.
+		                                       // For the transition to work correctly when changing from display:none,
+		                                       // we need to ensure the 'hide' class (which sets opacity:0) is removed *after* display:block is applied and rendered.
+
+		    // Force a reflow. This is a common trick to ensure the browser applies the 'display: block'
+		    // before attempting to transition opacity.
+		    void cookieBox.offsetWidth;
+
+		    // Remove 'hide' class to trigger transition to visible state (opacity: 1, transform: scale(1))
+		    cookieBox.classList.remove(hiddenClass);
 		}
 	</script>
 </body>
