@@ -117,13 +117,17 @@ h6 {
   text-align: center;
   z-index: 999;
   font-family: var(--font-secondary);
-}
-
-.wrapper.hide {
+  /* Hidden by default to prevent flash */
   opacity: 0;
   pointer-events: none;
   transform: scale(0.8);
   transition: all 0.3s ease;
+}
+
+.wrapper.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
 }
 
 .wrapper img {
