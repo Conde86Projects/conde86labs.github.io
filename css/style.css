@@ -4,8 +4,10 @@
 
 /* Variables */
 :root {
-  --primary-bg: #1B1B1D; /* Standardized Dark Background */
-  --accent-color: #FDE694; /* Yellow Accent */
+  --primary-bg: #1B1B1D;
+  /* Standardized Dark Background */
+  --accent-color: #FDE694;
+  /* Yellow Accent */
   --accent-hover: #fde99f;
   --text-white: #ffffff;
   --text-dark: #000000;
@@ -27,7 +29,12 @@ body {
 }
 
 /* Typography Overrides for specific sections if needed */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-main);
 }
 
@@ -41,7 +48,8 @@ h1, h2, h3, h4, h5, h6 {
 .logo {
   max-width: 150px;
   height: auto;
-  width: 150px; /* Consolidating width rules */
+  width: 150px;
+  /* Consolidating width rules */
 }
 
 /* --- Navbar --- */
@@ -105,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #fff;
   padding: 25px 25px 30px 25px;
   border-radius: 15px;
-  box-shadow: 1px 7px 14px -5px rgba(0,0,0,0.15);
+  box-shadow: 1px 7px 14px -5px rgba(0, 0, 0, 0.15);
   text-align: center;
   z-index: 999;
   font-family: var(--font-secondary);
@@ -188,4 +196,28 @@ body.apoie-page {
 .apoie-page img.qr-code {
   max-width: 250px;
   margin: 20px 0;
+}
+
+/* --- Social Icons (Sobre Page) --- */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icon {
+  color: var(--primary-bg);
+  /* Use dark color for icon by default (on white background) */
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #0077b5;
+  /* LinkedIn Blue or fallback */
+  transform: scale(1.1);
+}
+
+.social-icon[aria-label="Instagram"]:hover {
+  color: #E1306C;
+  /* Instagram Color */
 }
